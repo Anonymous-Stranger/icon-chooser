@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<!-- author: ag -->
+
+<html>
+  
+  <head>
+    
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width; initial-scale=1.0"/>
+
+    <title> Logo Chooser </title>
+
+    <script src="bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+
+    <link rel="import" href="bower_components/iron-icons/iron-icons.html"/>
+
+    <link rel="import" href="bower_components/paper-drawer-panel/paper-drawer-panel.html"/>
+    <link rel="import" href="bower_components/paper-header-panel/paper-header-panel.html"/>
+    <link rel="import" href="bower_components/paper-icon-button/paper-icon-button.html"/>
+    <link rel="import" href="bower_components/paper-styles/paper-styles-classes.html"/>
+    <link rel="import" href="bower_components/paper-toolbar/paper-toolbar.html"/>
+
+    <link rel="import" href="bower_components/file-upload/file-upload.html"/>
+
+  </head>
+  
+  <body class="fullbleed layout vertical">
+
+    <paper-drawer-panel>
+      
+      <!-- Drawer -->
+      <paper-header-panel drawer>
+        <paper-toolbar>
+          <div class="title">Icon Chooser</div>
+        </paper-toolbar>
+        
+      </paper-header-panel>
+
+
+      <paper-header-panel main>
+        
+        <!-- Header -->
+        <paper-toolbar>
+          <paper-icon-button icon="menu" paper-drawer-toggle></paper-icon-button>
+          <div class="title">Icon Chooser</div>
+        </paper-toolbar>
+
+        <!-- Page Content -->
+        <content>
+          
+        </content>
+
+      </paper-header-panel>
+
+    </paper-drawer-panel>
+
+  </body>
+
+</html>
