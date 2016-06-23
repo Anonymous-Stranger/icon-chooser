@@ -1,0 +1,70 @@
+
+<link rel="import" href="../../bower_components/polymer/polymer.html"/>
+
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html"/>
+
+<link rel="import" href="../../bower_components/file-upload/file-upload.html"/>
+
+<dom-module id="icon-chooser">
+  
+  <template>
+    
+    <template is="dom-if" if="[[!icons.length]]">
+
+      <div class="fit layout vertical center-center">
+
+        <file-upload id="iconFileChooser" files="{{iconFiles}}" multi manual-upload progress-hidden raised>Select Icons</file-upload>
+
+      </div>
+
+    </template>
+
+    <template is="dom-if" if="[[icons.length]]">
+
+      Hello world!
+
+    </template>
+
+  </template>
+
+  <script>
+
+    Polymer({
+      
+      is: 'icon-chooser',
+
+      properties: {
+        'iconFiles': {
+          // an array of File objects, each representing an icon.
+          type: Array,
+          value: []
+        },
+        'icons': {
+          type: Array,
+          computed: '_loadIconsFromFiles(iconFiles.length)'
+        }
+      },
+
+      _loadIconsFromFiles: function () {
+        /* Computes icons based on iconFiles. */
+
+        var jobName = 'loadIconsFromFiles';
+        if (this.isDebouncerActive(jobName)) return;
+
+        this.debounce(jobName, function(){
+
+          for (var i = 0; i != this.iconFiles.length; ++i) {
+            
+          }
+        
+        }, 250);
+
+        return this.icons ? this.icons : [];
+      }
+
+    });
+
+  </script>
+
+</dom-module>
+

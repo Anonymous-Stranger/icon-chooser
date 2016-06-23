@@ -1,10 +1,10 @@
 {
-  "name": "logo-chooser",
-  "homepage": "https://github.com/Anonymous-Stranger/logo-chooser",
+  "name": "icon-chooser",
+  "homepage": "https://github.com/Anonymous-Stranger/icon-chooser",
   "authors": [
     "Anonymous-Stranger <akashgaonkar@gmail.com>"
   ],
-  "description": "A page to make choosing a logo a little easier.",
+  "description": "A page to make choosing an icon a little easier.",
   "main": "index.html",
   "keywords": [
     "logo",
