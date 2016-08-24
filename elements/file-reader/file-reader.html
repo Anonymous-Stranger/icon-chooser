@@ -1,0 +1,147 @@
+<!--
+
+  <file-reader>
+
+  A wrapper for the JS FileReader API.
+  See https://developer.mozilla.org/en-US/docs/Web/API/FileReader.
+
+-->
+
+
+<link rel="import" href="../../bower_components/polymer/polymer.html"/>
+
+<script>
+
+    if (!window.FileReader) throw "file-reader: FileReader API not found.";
+
+    Polymer({
+
+      is: 'file-reader',
+
+      properties: {
+        
+        /**
+         * The file being read.
+         * @type {File}
+         */
+        'file': {
+          type: Object,
+          observer: 'update'
+        },
+
+        /**
+         * The way the file should be read.
+         * @type {string}
+         * Can be one of (case-insensitive):
+         *   - "arraybuffer"
+         *   - "binarystring"
+         *   - "dataurl"
+         *   - "text"
+         * All other values will not update result, and will throw
+         * an error when file is set and update is called.
+         */
+        'readAs': String,
+        
+        /**
+         * The result of reading the file.
+         * @type {Object}
+         */
+        'result': {
+          type: Object,
+          readOnly: true,
+          notify: true
+        },
+
+        /**
+         * Any error that occurs during the reading of the file.
+         * @type {Event}
+         */
+        'error': {
+          type: Object,
+          readOnly: true,
+          notify: true
+        },
+
+
+        /**
+         * A number representing the readystate of the filereader.
+         * Corresponds with the FileReader API readystate value.
+         * @type {number}
+         */
+        'readyState': {
+          type: Number,
+          value: FileReader.EMPTY,
+          readOnly: true,
+          notify: true
+        },
+
+        /**
+         * Prevents errors from being thrown. The 'error' parameter
+         * will still be updated.
+         * @type {boolean}
+         */
+        'noThrow': {
+          type: Boolean,
+          value: false
+        }
+
+      },
+
+      /**
+       * Called when a file-reader object is created.
+       */
+      created: function() {
+
+        this._fr = new FileReader();
+
+        var _this = this;
+
+        this._fr.addEventListener('load', function(){
+          _this._setResult(_this._fr.result);
+        });
+
+        this._fr.addEventListener('error', this._throwError);
+
+        this._fr.addEventListener('loadstart', function(){
+          _this._setReadyState(FileReader.LOADING);
+        });
+
+        this._fr.addEventListener('loadend', function(){
+          _this._setReadyState(FileReader.DONE);
+        });
+
+      },
+
+      /**
+       * Calls the proper read function based on the value of this.readAs.
+       * @param {File} file The file to be read.
+       */
+      update: function(file) {
+
+        if (!file) {
+          this._setResult(undefined);
+          this._setReadyState(FileReader.DONE);
+          return;
+        }
+
+        var readAs = this.readAs ? this.readAs.toLowerCase() : undefined;
+
+        if (readAs === 'arraybuffer') this._fr.readAsArrayBuffer(file);
+        else if (readAs === 'binarystring') this._fr.readAsBinaryString(file);
+        else if (readAs === 'dataurl') this._fr.readAsDataURL(file);
+        else if (readAs === 'text') this._fr.readAsText(file);
+        else this._throwError('file-reader: invalid read-as "' + readAs + '"');
+
+      },
+
+      /**
+       * Throws an error by setting this.error and possibly throwing that error.
+       */
+      _throwError: function(err) {
+        this._setError(err);
+        if (!this.noThrow) throw err;
+      }
+
+    });
+
+</script>

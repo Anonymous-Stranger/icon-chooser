@@ -26,6 +26,7 @@
     "file-upload": "^1.7.5",
     "paper-drawer-panel": "PolymerElements/paper-drawer-panel#^1.0.9",
     "paper-header-panel": "PolymerElements/paper-header-panel#^1.1.6",
-    "paper-toolbar": "PolymerElements/paper-toolbar#^1.1.5"
+    "paper-toolbar": "PolymerElements/paper-toolbar#^1.1.5",
+    "iron-image": "PolymerElements/iron-image#^1.2.3"
   }
 }

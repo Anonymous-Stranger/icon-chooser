@@ -2,27 +2,63 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html"/>
 
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html"/>
+<link rel="import" href="../../bower_components/iron-image/iron-image.html"/>
 
 <link rel="import" href="../../bower_components/file-upload/file-upload.html"/>
+
+<link rel="import" href="../file-reader/file-reader.html"/>
 
 <dom-module id="icon-chooser">
   
   <template>
     
+    <style>
+      
+      .ic-icon {
+        margin: 0.5rem;
+      }
+
+      .ic-icon.xs {
+        height: 16px;
+      }
+
+      .ic-icon.sm {
+        height: 32px;
+      }
+
+      .ic-icon.md {
+        height: 64px;
+      }
+
+      .ic-icon.lg {
+        height: 128px;
+      }
+
+      .ic-icon.xl {
+        height: 256px;
+      }
+
+    </style>
+
     <template is="dom-if" if="[[!icons.length]]">
 
       <div class="fit layout vertical center-center">
 
-        <file-upload id="iconFileChooser" files="{{iconFiles}}" multi manual-upload progress-hidden raised>Select Icons</file-upload>
+        <file-upload id="iconFileChooser" files="{{icons}}" multi manual-upload progress-hidden raised>Select Icons</file-upload>
 
       </div>
 
     </template>
 
     <template is="dom-if" if="[[icons.length]]">
-
-      Hello world!
-
+      <template is="dom-repeat" items="[[icons]]" as="iconFile">
+        <file-reader file="[[iconFile]]" read-as="dataurl" result="{{iconFile.src}}"></file-reader>
+        <img src="{{iconFile.src}}" sizing="contain" class="ic-icon xs"/>
+        <img src="{{iconFile.src}}" sizing="contain" class="ic-icon sm"/>
+        <img src="{{iconFile.src}}" sizing="contain" class="ic-icon md"/> 
+        <img src="{{iconFile.src}}" sizing="contain" class="ic-icon lg"/>
+        <img src="{{iconFile.src}}" sizing="contain" class="ic-icon xl"/>
+      </template>
     </template>
 
   </template>
@@ -41,7 +77,8 @@
         },
         'icons': {
           type: Array,
-          computed: '_loadIconsFromFiles(iconFiles.length)'
+          value: []
+          // computed: '_loadIconsFromFiles(iconFiles.length)'
         }
       },
 
